@@ -1,0 +1,25 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  max-width: 350px;
+  margin: auto;
+}
+
+.form-field,
+.button {
+  width: 100%;
+}
+
+.button {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.mat-card-header {
+  justify-content: center;
+}

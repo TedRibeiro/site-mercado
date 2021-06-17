@@ -5,6 +5,10 @@ import { LoginPageComponent } from './login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const routes: Routes = [{ path: '', component: LoginPageComponent }];
 
@@ -15,6 +19,10 @@ const routes: Routes = [{ path: '', component: LoginPageComponent }];
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
 })
 export class LoginPageModule {}
