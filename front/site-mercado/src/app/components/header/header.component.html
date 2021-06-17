@@ -1,1 +1,11 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+  <button mat-icon-button class="menu-icon" aria-label="Menu" (click)="onToggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Site Mercado</span>
+  <span class="spacer"></span>
+  <button mat-button class="logout-icon" aria-label="Sair da conta" (click)="onSignOut()">
+    Sair
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
