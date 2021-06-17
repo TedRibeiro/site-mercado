@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
+  hidePassword = true;
 
   constructor(
     private formBuilder: FormBuilder

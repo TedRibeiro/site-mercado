@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [{ path: '', component: LoginPageComponent }];
 
@@ -22,7 +23,8 @@ const routes: Routes = [{ path: '', component: LoginPageComponent }];
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule
   ],
 })
 export class LoginPageModule {}

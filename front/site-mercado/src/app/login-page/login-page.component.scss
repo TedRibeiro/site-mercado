@@ -11,6 +11,7 @@
 }
 
 .form-field,
+.form-check,
 .button {
   width: 100%;
 }
@@ -18,6 +19,10 @@
 .button {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.form-check {
+  padding: 5px 0px;
 }
 
 .mat-card-header {
