@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes: Routes = [{ path: '', component: LoginPageComponent }];
 
@@ -24,7 +25,8 @@ const routes: Routes = [{ path: '', component: LoginPageComponent }];
     MatCardModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
 })
 export class LoginPageModule {}

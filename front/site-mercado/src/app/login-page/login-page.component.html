@@ -3,7 +3,7 @@
     <mat-card-header>
       <mat-card-title>Entre com sua conta</mat-card-title>
     </mat-card-header>
-    <form [formGroup]="loginForm" (submit)="signIn()">
+    <form [formGroup]="loginForm" (submit)="signIn()" #formDir="ngForm">
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>Usuário</mat-label>
         <input matInput type="text" formControlName="userName">
@@ -34,7 +34,10 @@
         type="submit"
         class="button"
         color="primary"
-        [disabled]="loginForm.invalid">Entrar</button>
+        [disabled]="formDir.invalid">Entrar</button>
+      <mat-error *ngIf="!!errorMsg && formDir.submitted" class="login-error-msg">
+        {{ errorMsg }}
+      </mat-error>
     </form>
   </mat-card>
 </div>
