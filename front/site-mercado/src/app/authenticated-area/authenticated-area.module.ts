@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -55,6 +56,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatIconModule,
     ReactiveFormsModule,
     CurrencyMaskModule
   ],
