@@ -15,7 +15,7 @@ export class AuthenticationService {
     return of(true);
   }
 
-  signOut(): void {
-
+  signOut(): Observable<boolean> {
+    return of(true);
   }
 }
