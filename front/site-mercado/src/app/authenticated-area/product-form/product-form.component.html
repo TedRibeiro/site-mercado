@@ -1,1 +1,45 @@
-<p>product-form works!</p>
+<div class="container">
+  <h2>{{ formTitle }}</h2>
+  <form [formGroup]="productForm" (submit)="save()" #formDir="ngForm">
+    <app-photo-picker></app-photo-picker>
+
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" formControlName="name">
+      <mat-hint>Máximo de 60 caracteres</mat-hint>
+      <mat-error *ngIf="productForm.get('name')?.hasError('required')">
+        Insira o nome do produto
+      </mat-error>
+      <mat-error *ngIf="productForm.get('name')?.hasError('maxLength')">
+        Máximo de 60 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      <mat-hint>Máximo de 300 caracteres</mat-hint>
+      <mat-error *ngIf="productForm.get('description')?.hasError('required')">
+        Insira uma descrição
+      </mat-error>
+      <mat-error *ngIf="productForm.get('description')?.hasError('maxLength')">
+        Máximo de 300 caracteres
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Preço</mat-label>
+      <input matInput currencyMask formControlName="price">
+      <mat-error *ngIf="productForm.get('price')?.hasError('required')">
+        Insira um preço para o produto
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      type="submit"
+      class="button"
+      color="primary"
+      [disabled]="!formDir.invalid">Salvar</button>
+    <mat-error *ngIf="!!errorMsg && formDir.submitted" class="product-error-msg">
+      {{ errorMsg }}
+    </mat-error>
+  </form>
+</div>

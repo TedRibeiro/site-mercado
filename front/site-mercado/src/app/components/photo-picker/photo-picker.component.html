@@ -1,0 +1,20 @@
+<div *ngIf="!!imagePreviewUrl; else noPhoto">
+  <div class="photo-container" [style.background-image]="'url(' + imagePreviewUrl + ')'">
+    <button
+    mat-mini-fab
+    color="primary"
+    aria-label="Trocar foto selecionada"
+    type="button"
+    (click)="fileInput.click()">
+      <mat-icon>sync</mat-icon>
+    </button>
+  </div>
+</div>
+<ng-template #noPhoto>
+  <div class="no-photo-container" (click)="fileInput.click()">
+    <mat-icon>add_photo_alternate</mat-icon>
+    <span>Adicionar foto</span>
+    <span class="file-extensions">.JPG, .JPEG, .PNG</span>
+  </div>
+</ng-template>
+<input type="file" hidden #fileInput accept=".jpg,.jpeg,.png" (change)="onSaveFile($event.target)">

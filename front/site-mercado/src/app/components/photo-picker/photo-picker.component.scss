@@ -1,0 +1,42 @@
+.photo-container,
+.no-photo-container {
+  width: 160px;
+  height: 150px;
+  border-radius: 5px;
+  float: left;
+  margin: 12px 0;
+  position: relative;
+}
+
+.no-photo-container {
+  cursor: pointer;
+  border: 1px dotted #bdbdbd;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+
+  mat-icon {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .file-extensions {
+    font-size: 0.7em;
+  }
+}
+
+.no-photo-container:hover {
+  background-color: #f5f5f5;
+}
+
+.photo-container {
+  background-size: cover;
+
+  button {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+  }
+}

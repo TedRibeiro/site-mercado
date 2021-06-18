@@ -10,12 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
+import { PhotoPickerComponent } from './photo-picker/photo-picker.component';
+import { ListItemComponent } from './list-item/list-item.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    PhotoPickerComponent,
+    ListItemComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +34,9 @@ import { MatListModule } from '@angular/material/list';
   ],
   exports: [
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    PhotoPickerComponent,
+    ListItemComponent
   ]
 })
 export class ComponentsModule { }
