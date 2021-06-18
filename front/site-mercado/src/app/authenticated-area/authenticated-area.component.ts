@@ -1,4 +1,6 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authenticated-area',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticatedAreaComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  signOut() {
+    this.authService.signOut()
+    .subscribe((success) => {
+      if (success) {
+        this.router.navigateByUrl('');
+      }
+    })
   }
 
 }
