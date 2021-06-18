@@ -5,13 +5,12 @@
   <p>Olá, Usuário!</p>
 </div>
 <mat-nav-list>
-  <a mat-list-item routerLink="dashboard" (click)="onSidenavClose()">
-      <mat-icon>home</mat-icon> <span class="nav-caption">Início</span>
-  </a>
-  <a mat-list-item routerLink="product-list" (click)="onSidenavClose()">
-    <mat-icon>list</mat-icon><span class="nav-caption">Produtos</span>
-  </a>
-  <a mat-list-item routerLink="new" (click)="onSidenavClose()">
-      <mat-icon>add_circle_outline</mat-icon> <span class="nav-caption">Adicionar produto</span>
+  <a *ngFor="let item of sidenavItems"
+    class="sidenav-item"
+    mat-list-item
+    [routerLink]="item.routerLink"
+    routerLinkActive="active-route"
+    (click)="onSidenavClose()">
+      <mat-icon>{{ item.icon }}</mat-icon> <span class="nav-caption">{{ item.caption }}</span>
   </a>
 </mat-nav-list>
