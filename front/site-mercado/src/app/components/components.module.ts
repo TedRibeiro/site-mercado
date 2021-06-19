@@ -12,13 +12,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidenavComponent,
-    PhotoPickerComponent
+    PhotoPickerComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
