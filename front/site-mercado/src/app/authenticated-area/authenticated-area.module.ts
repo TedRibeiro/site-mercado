@@ -20,7 +20,7 @@ const routes: Routes = [
     path: '',
     component: AuthenticatedAreaComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { path: '', redirectTo: 'dashboard' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'new', component: ProductFormComponent },
       { path: 'edit/:productId', component: ProductFormComponent },
