@@ -13,6 +13,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
     path: '',
     component: AuthenticatedAreaComponent,
     children: [
-      { path: '', redirectTo: 'dashboard' },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'new', component: ProductFormComponent },
       { path: 'edit/:productId', component: ProductFormComponent },
@@ -57,6 +58,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
+    MatDialogModule,
     ReactiveFormsModule,
     CurrencyMaskModule
   ],

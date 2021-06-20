@@ -1,6 +1,8 @@
+import { ConfirmationDialogComponent } from './../components/confirmation-dialog/confirmation-dialog.component';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-authenticated-area',
@@ -11,17 +13,33 @@ export class AuthenticatedAreaComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
   }
 
   signOut() {
-    this.authService.signOut()
-    .subscribe((success) => {
-      if (success) {
-        this.router.navigateByUrl('');
+    const dialog = this.dialog.open(
+      ConfirmationDialogComponent,
+      {
+        data: {
+          title: 'Sair',
+          content: 'Tem certeza de que deseja sair da sua conta?'
+        }
+      }
+    );
+
+    // TODO: Alterar para switchMap
+    dialog.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.authService.signOut()
+        .subscribe((success) => {
+          if (success) {
+            this.router.navigateByUrl('');
+          }
+        })
       }
     })
   }
