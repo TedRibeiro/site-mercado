@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+}
+
+.product-image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+}
+
+.mat-column-price p {
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #2e7d32;
+}
+
+.mat-column-name p {
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.mat-column-action {
+  width: 100px;
+  max-width: 100px;
+}

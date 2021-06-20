@@ -1,1 +1,74 @@
-<p>product-list works!</p>
+<h2>Produtos</h2>
+<a mat-raised-button color="primary" routerLink="../new">
+  <mat-icon>
+    add
+  </mat-icon>
+  Adicionar
+</a>
+
+<mat-form-field class="w-100">
+  <mat-label>Pesquisar</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Sapato" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Produto </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="d-flex my-2">
+          <img class="product-image" [src]="row.photoUrl"/>
+          <div class="flex-column ms-3">
+            <p class="product-name">{{ row.name }}</p>
+            <a [routerLink]="[row.id]" class="text-decoration-none">
+              Ver mais
+            </a>
+          </div>
+          </div>
+      </td>
+    </ng-container>
+
+    <!-- Preço -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Preço </th>
+      <td mat-cell *matCellDef="let row">
+        <p>{{ row.price | currency}}</p>
+       </td>
+    </ng-container>
+
+    <!-- Ações -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="d-flex flex-column">
+          <button
+            mat-icon-button
+            (click)="edit(row.id)"
+            matTooltip="Editar"
+            matTooltipPosition="right">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="delete(row.id, row.name)"
+            color="warn"
+            matTooltip="Deletar"
+            matTooltipPosition="right">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Nenhum produto encontrado para a palavra-chave "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
