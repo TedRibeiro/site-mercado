@@ -1,3 +1,4 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,18 +15,23 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
+import { MatTableModule } from '@angular/material/table';
+import { ProductDetailsComponent } from './product-list/product-details/product-details.component';
+import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 
 const routes: Routes = [
   {
     path: '',
     component: AuthenticatedAreaComponent,
     children: [
-      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'new', component: ProductFormComponent },
       { path: 'edit/:productId', component: ProductFormComponent },
       { path: 'product-list', component: ProductListComponent },
+      { path: 'product-list/:productId', component: ProductDetailsComponent },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 ];
@@ -47,6 +53,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ProductFormComponent,
     ProductListComponent,
     DashboardComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -59,11 +66,15 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatSnackBarModule,
     MatIconModule,
     MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatTooltipModule,
     ReactiveFormsModule,
     CurrencyMaskModule
   ],
   providers: [
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() }
   ],
 })
 export class AuthenticatedAreaModule {}
