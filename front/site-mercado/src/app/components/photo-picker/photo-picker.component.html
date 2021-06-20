@@ -19,4 +19,9 @@
     <span class="file-extensions">.JPG, .JPEG, .PNG</span>
   </div>
 </ng-template>
-<input type="file" hidden #fileInput accept=".jpg,.jpeg,.png" (change)="onSaveFile($event.target)">
+<input
+  type="file"
+  hidden
+  #fileInput
+  accept=".jpg,.jpeg,.png"
+  (change)="onSaveFile($event.target)">

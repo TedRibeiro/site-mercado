@@ -5,7 +5,10 @@
   <h2>{{ formTitle }}</h2>
 
   <form [formGroup]="productForm" (submit)="save()" #formDir="ngForm">
-    <app-photo-picker></app-photo-picker>
+    <app-photo-picker
+      [imagePreviewUrl]="productForm.get('photoUrl')?.value"
+      (uploadedPhoto)="onPhotoUploaded($event.target)"></app-photo-picker>
+    <input formControlName="photoUrl" hidden>
 
     <mat-form-field class="form-field" appearance="outline">
       <mat-label>Nome</mat-label>

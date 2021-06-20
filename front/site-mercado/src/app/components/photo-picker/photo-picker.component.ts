@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-photo-picker',
@@ -8,9 +9,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class PhotoPickerComponent implements OnInit {
 
   @Output() uploadedPhoto = new EventEmitter();
+  @Input() imagePreviewUrl!: string;
 
   file!: File;
-  imagePreviewUrl!: string;
 
   constructor() { }
 
@@ -24,6 +25,7 @@ export class PhotoPickerComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => (this.imagePreviewUrl = event.target.result);
       reader.readAsDataURL(file);
+      this.uploadedPhoto.emit(this.imagePreviewUrl);
     }
   }
 }

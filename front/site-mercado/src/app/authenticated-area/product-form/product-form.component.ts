@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
   errorMsg!: string;
-  formTitle!: string;
+  formTitle = 'Novo Produto';
 
   private productId!: string;
   private get isUpdate() {
@@ -29,15 +29,20 @@ export class ProductFormComponent implements OnInit {
   ) {
     this.productId = this.activatedRoute.snapshot.params.productId;
     this.productForm = this.formBuilder.group({
-      name: ['', Validators.required, Validators.maxLength(60)],
+      name: ['', [Validators.required, Validators.maxLength(60)]],
       description: ['', [Validators.required, Validators.maxLength(300)]],
       price: ['', Validators.required],
       photoUrl: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {
-    this.formTitle = this.isUpdate ? 'Editar Produto' : 'Novo Produto';
+  async ngOnInit(): Promise<void> {
+    if (this.isUpdate) {
+      this.formTitle = 'Editar Produto';
+
+      const product = await this.productService.get(this.productId).toPromise();
+      this.productForm.patchValue(product);
+    }
   }
 
   save() {
@@ -65,5 +70,9 @@ export class ProductFormComponent implements OnInit {
 
   goBack() {
     history.back();
+  }
+
+  onPhotoUploaded(e: string) {
+    this.productForm.patchValue({ photoUrl: e });
   }
 }
