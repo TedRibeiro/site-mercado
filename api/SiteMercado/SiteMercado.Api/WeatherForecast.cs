@@ -1,6 +1,6 @@
 using System;
 
-namespace SiteMercado.Application
+namespace SiteMercado.Api
 {
     public class WeatherForecast
     {

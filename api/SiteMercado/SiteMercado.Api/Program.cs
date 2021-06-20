@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SiteMercado.Application
+namespace SiteMercado.Api
 {
     public class Program
     {

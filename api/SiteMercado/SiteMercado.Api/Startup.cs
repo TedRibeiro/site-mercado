@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SiteMercado.Application
+namespace SiteMercado.Api
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace SiteMercado.Application
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SiteMercado.Application", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SiteMercado.Api", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace SiteMercado.Application
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SiteMercado.Application v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SiteMercado.Api v1"));
             }
 
             app.UseHttpsRedirection();
