@@ -62,4 +62,8 @@ export class ProductFormComponent implements OnInit {
       );
     }
   }
+
+  goBack() {
+    history.back();
+  }
 }

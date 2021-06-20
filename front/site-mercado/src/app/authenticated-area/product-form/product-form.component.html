@@ -1,5 +1,9 @@
 <div class="container">
+  <button (click)="goBack()"mat-icon-button>
+    <mat-icon>arrow_back</mat-icon>
+  </button>
   <h2>{{ formTitle }}</h2>
+
   <form [formGroup]="productForm" (submit)="save()" #formDir="ngForm">
     <app-photo-picker></app-photo-picker>
 
