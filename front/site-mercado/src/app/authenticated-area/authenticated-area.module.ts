@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { AuthenticatedAreaComponent } from './authenticated-area.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { PhotoPickerComponent } from './product-form/photo-picker/photo-picker.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -54,6 +55,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ProductListComponent,
     DashboardComponent,
     ProductDetailsComponent,
+    PhotoPickerComponent
   ],
   imports: [
     CommonModule,
