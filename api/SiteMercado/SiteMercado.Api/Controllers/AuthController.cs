@@ -22,6 +22,12 @@ namespace SiteMercado.Api.Controllers
         [HttpPost]
         public IActionResult Authenticate([FromBody] UserAuthModel user)
         {
+            if (string.IsNullOrWhiteSpace(user.Username) || string.IsNullOrWhiteSpace(user.Password))
+            {
+                ModelState.AddModelError("Auth", "Os dados de acesso estão incompletos");
+                return BadRequest(ModelState);
+            }
+
             var response = _authService.TryLogIn(user).Result;
 
             var authResult = JsonSerializer
@@ -32,13 +38,13 @@ namespace SiteMercado.Api.Controllers
 
             if (!authResult.Success)
             {
-                ModelState.AddModelError("Auth", authResult.Error);
+                ModelState.AddModelError("Auth", "Usuário ou senha inválidos");
                 return BadRequest(ModelState);
             }
 
-            var token = TokenService.GenerateToken(user);
+            authResult.Token = TokenService.GenerateToken(user);
 
-            return Ok(token);
+            return Ok(authResult);
         }
     }
 }
