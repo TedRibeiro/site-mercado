@@ -43,9 +43,9 @@ namespace SiteMercado.Application
             return productDto;
         }
 
-        public void Remove(ProductDto productDto)
+        public void Remove(int id)
         {
-            var product = mapper.Map<Product>(productDto);
+            var product = productService.GetById(id);
             productService.Remove(product);
         }
 

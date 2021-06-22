@@ -45,7 +45,7 @@ namespace SiteMercado.Api.Controllers
                     return NotFound();
 
                 _applicationServiceProduct.Add(productDTO);
-                return Ok("Produto Cadastrado com sucesso!");
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace SiteMercado.Api.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public IActionResult Put([FromRoute] int id, [FromBody] ProductDto productDTO)
         {
             try
@@ -68,7 +68,7 @@ namespace SiteMercado.Api.Controllers
                 }
 
                 _applicationServiceProduct.Update(productDTO);
-                return Ok("Produto atualizado com sucesso!");
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -76,16 +76,13 @@ namespace SiteMercado.Api.Controllers
             }
         }
 
-        [HttpDelete()]
-        public IActionResult Delete([FromBody] ProductDto productDTO)
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] int id)
         {
             try
             {
-                if (productDTO == null)
-                    return NotFound();
-
-                _applicationServiceProduct.Remove(productDTO);
-                return Ok("product Removido com sucesso!");
+                _applicationServiceProduct.Remove(id);
+                return NoContent();
             }
             catch (Exception ex)
             {

@@ -13,7 +13,7 @@ namespace SiteMercado.Application.Interfaces
 
         ProductDto Update(ProductDto ProductDto);
 
-        void Remove(ProductDto ProductDto);
+        void Remove(int id);
 
         IEnumerable<ProductDto> GetAll();
 
