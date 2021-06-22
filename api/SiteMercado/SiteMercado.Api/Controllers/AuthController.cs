@@ -7,6 +7,8 @@ using System.Text.Json;
 
 namespace SiteMercado.Api.Controllers
 {
+    [Route("auth")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -22,10 +24,15 @@ namespace SiteMercado.Api.Controllers
         {
             var response = _authService.TryLogIn(user).Result;
 
-            var authResult = JsonSerializer.Deserialize<AuthResultModel>(response);
+            var authResult = JsonSerializer
+                .Deserialize<AuthResultModel>(response, 
+                new JsonSerializerOptions {
+                    PropertyNameCaseInsensitive = true
+                });
+
             if (!authResult.Success)
             {
-                ModelState.AddModelError("Auth", "Usuário ou senha inválidos.");
+                ModelState.AddModelError("Auth", authResult.Error);
                 return BadRequest(ModelState);
             }
 

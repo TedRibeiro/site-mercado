@@ -19,6 +19,7 @@ namespace SiteMercado.CrossCutting.IOC
         {
             builder.RegisterType<ApplicationServiceProduct>().As<IApplicationServiceProduct>();
             builder.RegisterType<ProductService>().As<IProductService>();
+            builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<ProductRepository>().As<IProductRepository>();
         }
     }
