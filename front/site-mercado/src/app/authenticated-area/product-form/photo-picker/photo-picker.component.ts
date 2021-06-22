@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { ProductService } from './../../../services/product.service';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
@@ -16,7 +17,7 @@ export class PhotoPickerComponent implements OnInit {
   @Input() submitted = false;
   uploadProgress!: number;
 
-  isLoading = false;
+  isUploading = false;
   uploadError = false;
   invalidPhoto = false;
 
@@ -39,7 +40,9 @@ export class PhotoPickerComponent implements OnInit {
       }
 
       const reader = new FileReader();
-      reader.onload = (event: any) => (this.imagePreviewUrl = event.target.result);
+      reader.onload = (event: any) => {
+        this.imagePreviewUrl = event.target.result
+      };
       reader.readAsDataURL(file);
       this.file = file;
 
@@ -48,12 +51,12 @@ export class PhotoPickerComponent implements OnInit {
   }
 
   uploadFile() {
-    this.isLoading = true;
+    this.isUploading = true;
     this.uploadError = false;
     this.invalidPhoto = false;
 
     this.productService.uploadPicture(this.file)
-    .pipe(finalize(() => this.isLoading = false))
+    .pipe(finalize(() => this.isUploading = false))
     .subscribe(
       (event: HttpEvent<any>) => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -61,6 +64,9 @@ export class PhotoPickerComponent implements OnInit {
           this.uploadProgress = Math.round(100 * (event.loaded / total));
         } else if (event.type === HttpEventType.Response) {
           console.log(event);
+          console.log(event.body);
+          console.log(event.body.relativePath);
+          this.uploadedPhoto.emit(event.body.relativePath);
         }
       },
       error => {

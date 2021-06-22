@@ -6,8 +6,8 @@
 
   <form [formGroup]="productForm" (submit)="save()" #formDir="ngForm">
     <app-photo-picker
-      [imagePreviewUrl]="productForm.get('photoUrl')?.value"
-      (uploadedPhoto)="onPhotoUploaded($event.target)"
+      [imagePreviewUrl]="resolveImgPath(productForm.get('photoUrl')?.value)"
+      (uploadedPhoto)="onPhotoUploaded($event)"
       [submitted]="formDir.submitted"></app-photo-picker>
     <input formControlName="photoUrl" hidden>
 
@@ -45,9 +45,7 @@
       type="submit"
       class="button"
       color="primary"
-      [disabled]="!formDir.invalid">Salvar</button>
-    <mat-error *ngIf="!!errorMsg && formDir.submitted" class="product-error-msg">
-      {{ errorMsg }}
-    </mat-error>
+      [disabled]="formDir.invalid">Salvar</button>
+    <app-alert *ngIf="!!errorMsg && formDir.submitted" [errorMsg]="errorMsg"></app-alert>
   </form>
 </div>

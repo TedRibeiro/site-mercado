@@ -1,10 +1,10 @@
+import { environment } from './../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from './../../services/product.service';
-import { Product } from './../../interfaces/product';
+import { Product } from '../interfaces/product';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-form',
@@ -50,32 +50,62 @@ export class ProductFormComponent implements OnInit {
   save() {
     if (this.productForm.valid) {
       const product: Product = this.productForm.value;
-
-      this.productService.save(product).subscribe(
-        (success) => {
-          if (success) {
-            this.snackBar.open('Produto adicionado com sucesso!', 'Ok', {
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              duration: 3000,
-            });
-
-            this.router.navigateByUrl('app/product-list');
-          }
-        },
-        (error) => {
-          this.errorMsg = `Erro ao adicionar o produto`;
-          console.log(error);
-        }
-      );
+      if(this.isUpdate) {
+        this._updateProduct(product);
+        return;
+      }
+      this._insertProduct(product);
     }
+  }
+
+  private _insertProduct(product: Product) {
+    this.productService.save(product).subscribe(
+      (success) => {
+        this.snackBar.open('Produto adicionado com sucesso!', 'Ok', {
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          duration: 3000,
+        });
+
+        this.router.navigateByUrl('app/product-list');
+      },
+      (error) => {
+        this.errorMsg = `Erro ao adicionar o produto`;
+      }
+    );
+  }
+
+  private _updateProduct(product: Product) {
+    product.id = this.productId;
+
+    this.productService.update(product).subscribe(
+      (success) => {
+        this.snackBar.open('Produto adicionado com sucesso!', 'Ok', {
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          duration: 3000,
+        });
+
+        this.router.navigateByUrl('app/product-list');
+      },
+      (error) => {
+        this.errorMsg = `Erro ao atualizar o produto`;
+      }
+    );
   }
 
   goBack() {
     history.back();
   }
 
-  async onPhotoUploaded(fileName: string) {
-    this.productForm.patchValue({ photoUrl: fileName })
+  onPhotoUploaded(fileName: string) {
+    this.productForm.patchValue({ photoUrl: fileName });
+  }
+
+  resolveImgPath(relativePath: string) {
+    if (!!relativePath) {
+      return `${environment.baseUrl}/${relativePath.replace(/\\/g, '/')}`;
+    }
+    return '';
   }
 }

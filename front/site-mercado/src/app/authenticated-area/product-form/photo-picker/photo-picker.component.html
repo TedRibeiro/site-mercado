@@ -1,4 +1,4 @@
-<div [ngTemplateOutlet]="isLoading ? loading :
+<div [ngTemplateOutlet]="isUploading ? uploading :
                           uploadError ? error :
                           !!imagePreviewUrl ?
                           selectedPhoto :
@@ -6,7 +6,7 @@
 
 </div>
 
-<ng-template #loading>
+<ng-template #uploading>
   <div class="photo-container photo-loading" [style.background-image]="'url(' + imagePreviewUrl + ')'">
     <mat-progress-bar mode="determinate" [value]="uploadProgress" class="w-100"></mat-progress-bar>
   </div>
