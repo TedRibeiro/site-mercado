@@ -4,10 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 
 registerLocaleData(localePt);
 
@@ -24,6 +25,11 @@ registerLocaleData(localePt);
   providers: [
     { provide: LOCALE_ID, useValue: "pt" },
     { provide: DEFAULT_CURRENCY_CODE, useValue: "BRL" },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
