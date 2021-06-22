@@ -43,15 +43,15 @@ namespace SiteMercado.Application
             return productDto;
         }
 
-        public void Remove(ProductDto ProductDto)
+        public void Remove(ProductDto productDto)
         {
-            var product = mapper.Map<Product>(ProductDto);
+            var product = mapper.Map<Product>(productDto);
             productService.Remove(product);
         }
 
-        public ProductDto Update(ProductDto ProductDto)
+        public ProductDto Update(ProductDto productDto)
         {
-            var product = mapper.Map<Product>(ProductDto);
+            var product = mapper.Map<Product>(productDto);
             productService.Update(product);
             return mapper.Map<ProductDto>(product);
         }

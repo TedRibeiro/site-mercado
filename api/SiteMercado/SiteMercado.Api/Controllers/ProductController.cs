@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SiteMercado.Api.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -37,28 +37,40 @@ namespace SiteMercado.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ProductDto productDTO)
         {
-            if (productDTO == null)
-                return NotFound();
+            try
+            {
+                if (productDTO == null)
+                    return NotFound();
 
-            _applicationServiceProduct.Add(productDTO);
-            return Ok("Produto Cadastrado com sucesso!");
+                _applicationServiceProduct.Add(productDTO);
+                return Ok("Produto Cadastrado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] ProductDto productDTO)
+        public IActionResult Put([FromBody] int id, [FromBody] ProductDto productDTO)
         {
             try
             {
                 if (productDTO == null)
                     return NotFound();
 
-                _applicationServiceProduct.Update(productDTO);
-                return Ok("product Atualizado com sucesso!");
-            }
-            catch (Exception)
-            {
+                if (id != productDTO.Id)
+                {
+                    ModelState.AddModelError("Invalid", "Operação não permitida.");
+                    return BadRequest(ModelState);
+                }
 
-                throw;
+                _applicationServiceProduct.Update(productDTO);
+                return Ok("Produto atualizado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
             }
         }
 
