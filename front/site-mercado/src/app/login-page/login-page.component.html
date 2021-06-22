@@ -45,9 +45,7 @@
         </ng-template>
       </button>
 
-      <div *ngIf="!!errorMsg && formDir.submitted" class="alert alert-danger text-center" role="alert">
-        {{ errorMsg }}
-      </div>
+      <app-alert *ngIf="!!errorMsg && formDir.submitted" [errorMsg]="errorMsg"></app-alert>
     </form>
   </mat-card>
 </div>

@@ -1,4 +1,4 @@
-import { ComponentsModule } from './../components/components.module';
+import { SharedModule } from './../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,7 @@ const routes: Routes = [{ path: '', component: LoginPageComponent }];
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    ComponentsModule,
+    SharedModule,
 
     MatFormFieldModule,
     MatInputModule,

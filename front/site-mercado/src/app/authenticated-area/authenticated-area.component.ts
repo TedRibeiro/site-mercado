@@ -1,8 +1,8 @@
-import { ConfirmationDialogComponent } from './../components/confirmation-dialog/confirmation-dialog.component';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-authenticated-area',

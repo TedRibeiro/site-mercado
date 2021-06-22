@@ -40,11 +40,9 @@ export class LoginPageComponent implements OnInit {
       .pipe(finalize(() => this.loading = false))
       .subscribe(
         success => {
-          console.log(success);
           this.router.navigateByUrl('app');
         },
         error => {
-          console.log(error);
           if (error.status === 400) {
             this.errorMsg = error.error.Auth;
             return;
