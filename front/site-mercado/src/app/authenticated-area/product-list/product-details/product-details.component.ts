@@ -1,7 +1,9 @@
+import { finalize } from 'rxjs/operators';
 import { ProductService } from './../../../services/product.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/authenticated-area/interfaces/product';
 import { ActivatedRoute } from '@angular/router';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -10,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
   product!: Product;
+  loading = true;
+  errorMsg = '';
 
   private _productId!: string;
 
@@ -22,7 +26,12 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.get(this._productId)
-    .subscribe(p => this.product = p);
+    .pipe(finalize(() => this.loading = false))
+    .subscribe(
+      p => this.product = p,
+      error => {
+        this.errorMsg = "Ocorreu um erro ao recuperar o produto."
+      });
   }
 
   goBack() {

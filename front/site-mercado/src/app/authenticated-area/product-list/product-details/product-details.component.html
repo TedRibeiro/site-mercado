@@ -1,7 +1,19 @@
 <button (click)="goBack()"mat-icon-button>
-  <mat-icon>arrow_back</mat-icon>
+  <mat-icon class="w-100">arrow_back</mat-icon>
 </button>
-<h2>{{ product.name }}</h2>
-<img appResolveImage [src]="product.photoUrl" [alt]="'Foto do produto ' + product.name" class="product-image">
-<h3><strong>Preço: {{ product.price | currency }}</strong></h3>
-<p><strong>Descrição</strong>: {{ product.description }}</p>
+
+<div *ngIf="product; else loading">
+  <h2>{{ product.name }}</h2>
+  <img appResolveImage [src]="product.photoUrl" [alt]="'Foto do produto ' + product.name" class="product-image">
+  <h3><strong>Preço: {{ product.price | currency }}</strong></h3>
+  <p><strong>Descrição</strong>: {{ product.description }}</p>
+</div>
+
+<ng-template #loading>
+  <div class="d-flex flex-row">
+    <p>Carregando produto</p>
+    <mat-spinner diameter="20" class="ms-2"></mat-spinner>
+  </div>
+</ng-template>
+
+<app-alert *ngIf="!!errorMsg" [errorMsg]="errorMsg"></app-alert>

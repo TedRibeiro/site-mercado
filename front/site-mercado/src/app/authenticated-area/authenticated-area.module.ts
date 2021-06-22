@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from './../shared/shared.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
@@ -78,7 +79,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatPaginatorModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
