@@ -1,4 +1,4 @@
-import { Product, ProductList } from './../interfaces/product';
+import { Product, ProductList } from '../authenticated-area/interfaces/product';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -15,12 +15,12 @@ export class ProductService {
     private http: HttpClient
   ) {}
 
-  save(product: Product): Observable<Product> {
-    return this.http.post<Product>(API, product);
+  save(product: Product): Observable<Object> {
+    return this.http.post(API, product);
   }
 
-  update(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${API}/update/${product.id}`, product);
+  update(product: Product): Observable<Object> {
+    return this.http.put(`${API}/update/${product.id}`, product);
   }
 
   get(id: string): Observable<Product> {
@@ -32,8 +32,8 @@ export class ProductService {
 
   }
 
-  delete(id: string): Observable<Product> {
-    return this.http.delete<Product>(`${API}/${id}`);
+  delete(id: string): Observable<Object> {
+    return this.http.delete(`${API}/${id}`);
   }
 
   uploadPicture(file: File) {
