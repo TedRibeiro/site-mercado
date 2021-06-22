@@ -15,6 +15,10 @@ using SiteMercado.CrossCutting.IOC;
 using SiteMercado.Data;
 using System.IO;
 using FluentValidation.AspNetCore;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace SiteMercado.Api
 {
@@ -39,7 +43,7 @@ namespace SiteMercado.Api
             services.AddSingleton(mapper);
         }
 
-        private void AddFluentValidation(IServiceCollection services)
+        private static void AddFluentValidation(IServiceCollection services)
         {
             var mvcBuilder = services.AddMvc(options =>
             {
@@ -61,7 +65,7 @@ namespace SiteMercado.Api
             );
         }
 
-        private void AddCors(IServiceCollection services)
+        private static void AddCors(IServiceCollection services)
         {
             services.AddCors(option =>
             {
@@ -69,6 +73,36 @@ namespace SiteMercado.Api
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
+            });
+        }
+
+        private static void AddAuth(IServiceCollection services)
+        {
+            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+        }
+        
+        private static void AddHttpClient(IServiceCollection services)
+        {
+            services.AddHttpClient("SiteMercadoApi", c =>
+            {
+                c.BaseAddress = new Uri("https://dev.sitemercado.com.br/api/");
             });
         }
 
@@ -101,9 +135,11 @@ namespace SiteMercado.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SiteMercado.Api", Version = "v1" });
             });
 
+            AddCors(services);
             AddAutoMapper(services);
             AddSqlite(services);
-            AddCors(services);
+            AddAuth(services);
+            AddHttpClient(services);
 
             services.Configure<FormOptions>(o => {
                 o.ValueLengthLimit = int.MaxValue;
@@ -134,7 +170,7 @@ namespace SiteMercado.Api
 
             app.UseRouting();
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

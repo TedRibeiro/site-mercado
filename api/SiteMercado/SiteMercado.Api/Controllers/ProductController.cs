@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiteMercado.Application.DTOs;
 using SiteMercado.Application.Interfaces;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace SiteMercado.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -51,8 +53,8 @@ namespace SiteMercado.Api.Controllers
             }
         }
 
-        [HttpPut]
-        public IActionResult Put([FromBody] int id, [FromBody] ProductDto productDTO)
+        [HttpPut("{id}")]
+        public IActionResult Put([FromRoute] int id, [FromBody] ProductDto productDTO)
         {
             try
             {
