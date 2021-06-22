@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-const API = `${environment.baseUrl}/product`;
+const API = `${environment.baseUrl}/api/product`;
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,6 @@ export class ProductService {
 
   uploadPicture(file: File) {
     const formData = new FormData();
-    console.log(file);
     formData.append('file', file);
 
     return this.http.post(`${API}/upload`, formData, {
