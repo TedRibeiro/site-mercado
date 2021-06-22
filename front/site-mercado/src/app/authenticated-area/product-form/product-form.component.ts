@@ -4,6 +4,7 @@ import { ProductService } from './../../services/product.service';
 import { Product } from './../../interfaces/product';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-form',
@@ -14,6 +15,7 @@ export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
   errorMsg!: string;
   formTitle = 'Novo Produto';
+  uploadProgress!: number;
 
   private productId!: string;
   private get isUpdate() {
@@ -46,7 +48,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   save() {
-    if (!this.productForm.valid) {
+    if (this.productForm.valid) {
       const product: Product = this.productForm.value;
 
       this.productService.save(product).subscribe(
@@ -63,6 +65,7 @@ export class ProductFormComponent implements OnInit {
         },
         (error) => {
           this.errorMsg = `Erro ao adicionar o produto`;
+          console.log(error);
         }
       );
     }
@@ -72,7 +75,7 @@ export class ProductFormComponent implements OnInit {
     history.back();
   }
 
-  onPhotoUploaded(e: string) {
-    this.productForm.patchValue({ photoUrl: e });
+  async onPhotoUploaded(fileName: string) {
+    this.productForm.patchValue({ photoUrl: fileName })
   }
 }

@@ -2,11 +2,16 @@
 .no-photo-container {
   width: 160px;
   height: 150px;
-  border-radius: 5px;
   border: 1px solid #E0E0E0;
   float: left;
   margin: 12px 0;
   position: relative;
+}
+
+.photo-container,
+.no-photo-container,
+.photo-error::after {
+  border-radius: 5px;
 }
 
 .no-photo-container {
@@ -18,11 +23,6 @@
   align-content: center;
   flex-direction: column;
   color: #616161;
-
-  mat-icon {
-    width: 100%;
-    margin-bottom: 5px;
-  }
 
   .file-extensions {
     font-size: 0.7em;
@@ -38,7 +38,30 @@
 
   button {
     position: absolute;
+  }
+
+  button {
     right: 5px;
     bottom: 5px;
   }
+}
+
+.photo-loading {
+  opacity: 0.6;
+}
+
+.photo-error::after {
+  content: "";
+  background-color: #f44336;
+  opacity: 0.3;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.invalid-photo {
+  border-color: #f44336;
+  color: #f44336;
+  border-width: 2px;
 }

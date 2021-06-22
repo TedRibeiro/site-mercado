@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ComponentsModule } from './../components/components.module';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -69,6 +70,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatIconModule,
     MatDialogModule,
     MatTableModule,
+    MatProgressBarModule,
     MatPaginatorModule,
     MatTooltipModule,
     ReactiveFormsModule,

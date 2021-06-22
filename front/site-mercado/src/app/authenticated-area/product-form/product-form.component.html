@@ -7,7 +7,8 @@
   <form [formGroup]="productForm" (submit)="save()" #formDir="ngForm">
     <app-photo-picker
       [imagePreviewUrl]="productForm.get('photoUrl')?.value"
-      (uploadedPhoto)="onPhotoUploaded($event.target)"></app-photo-picker>
+      (uploadedPhoto)="onPhotoUploaded($event.target)"
+      [submitted]="formDir.submitted"></app-photo-picker>
     <input formControlName="photoUrl" hidden>
 
     <mat-form-field class="form-field" appearance="outline">

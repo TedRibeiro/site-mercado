@@ -1,4 +1,29 @@
-<div *ngIf="!!imagePreviewUrl; else noPhoto">
+<div [ngTemplateOutlet]="isLoading ? loading :
+                          uploadError ? error :
+                          !!imagePreviewUrl ?
+                          selectedPhoto :
+                          noPhoto">
+
+</div>
+
+<ng-template #loading>
+  <div class="photo-container photo-loading" [style.background-image]="'url(' + imagePreviewUrl + ')'">
+    <mat-progress-bar mode="determinate" [value]="uploadProgress" class="w-100"></mat-progress-bar>
+  </div>
+</ng-template>
+
+<ng-template #error>
+  <div class="d-flex flex-row">
+    <div class="photo-container photo-error" [style.background-image]="'url(' + imagePreviewUrl + ')'">
+    </div>
+    <div class="d-flex flex-column ms-3 mb-3 justify-content-end">
+      <strong><p>Houve um erro no upload da imagem</p></strong>
+      <button mat-raised-button color="primary" (click)="uploadFile()">Tentar Novamente</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #selectedPhoto>
   <div class="photo-container" [style.background-image]="'url(' + imagePreviewUrl + ')'">
     <button
     mat-mini-fab
@@ -11,17 +36,24 @@
       <mat-icon>sync</mat-icon>
     </button>
   </div>
-</div>
+</ng-template>
+
 <ng-template #noPhoto>
-  <div class="no-photo-container" (click)="fileInput.click()">
-    <mat-icon>add_photo_alternate</mat-icon>
-    <span>Adicionar foto</span>
-    <span class="file-extensions">.JPG, .JPEG, .PNG</span>
+  <div class="d-flex flex-row align-items-end">
+    <div class="no-photo-container" [ngClass]="{'invalid-photo': !!errorMsg}" (click)="fileInput.click()" >
+      <mat-icon class="w-100 mb-2">add_photo_alternate</mat-icon>
+      <span>Adicionar foto</span>
+      <span class="file-extensions">.JPG, .JPEG, .PNG</span>
+    </div>
+    <mat-error *ngIf="!!errorMsg" class="ms-3 mb-3">
+      {{ errorMsg }}
+    </mat-error>
   </div>
 </ng-template>
+
 <input
   type="file"
   hidden
   #fileInput
   accept=".jpg,.jpeg,.png"
-  (change)="onSaveFile($event.target)">
+  (change)="onSelectFile($event.target)">
