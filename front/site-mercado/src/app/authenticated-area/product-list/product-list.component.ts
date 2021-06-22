@@ -1,13 +1,15 @@
-import { ProductList } from './../../interfaces/product';
+import { ProductList } from '../interfaces/product';
 import { ProductService } from './../../services/product.service';
 import { Router } from '@angular/router';
-import { ConfirmationDialogComponent } from './../../components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './../components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Product } from 'src/app/interfaces/product';
+import { Product } from 'src/app/authenticated-area/interfaces/product';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +27,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
   ) {
   }
 
@@ -50,7 +52,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  delete(id: number, productName: string) {
+  delete(id: string, productName: string) {
     const dialog = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: 'Deletar Produto',
@@ -58,11 +60,15 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       },
     });
 
-    dialog.afterClosed().subscribe((success) => {
+    dialog.afterClosed()
+    .pipe(switchMap((success) => {
       if (success) {
-        this.products = this.products.filter((u) => u.id !== id.toString());
-        this.dataSource.data = this.products;
+        return this.productService.delete(id);
       }
+
+      return of(null);
+    })).subscribe((success) => {
+      console.log(success);
     });
   }
 

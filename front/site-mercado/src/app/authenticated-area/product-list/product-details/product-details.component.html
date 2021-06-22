@@ -2,6 +2,6 @@
   <mat-icon>arrow_back</mat-icon>
 </button>
 <h2>{{ product.name }}</h2>
-<img [src]="product.photoUrl" [alt]="'Foto do produto ' + product.name" class="product-image">
+<img appResolveImage [src]="product.photoUrl" [alt]="'Foto do produto ' + product.name" class="product-image">
 <h3><strong>Preço: {{ product.price | currency }}</strong></h3>
 <p><strong>Descrição</strong>: {{ product.description }}</p>

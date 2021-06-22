@@ -18,7 +18,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Produto </th>
       <td mat-cell *matCellDef="let row">
         <div class="d-flex my-2">
-          <img class="product-image" [src]="row.photoUrl"/>
+          <img appResolveImage class="product-image" [src]="row.photoUrl"/>
           <div class="flex-column ms-3">
             <p class="product-name">{{ row.name }}</p>
             <a [routerLink]="[row.id]" class="text-decoration-none">
