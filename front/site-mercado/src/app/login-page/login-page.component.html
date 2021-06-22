@@ -1,7 +1,8 @@
 <div class="wrapper">
   <mat-card class="card">
     <mat-card-header>
-      <mat-card-title>Entre com sua conta</mat-card-title>
+      <mat-card-title>SiteMercado</mat-card-title>
+      <mat-card-subtitle>Entre com sua conta</mat-card-subtitle>
     </mat-card-header>
     <form [formGroup]="loginForm" (submit)="signIn()" #formDir="ngForm">
       <mat-form-field class="form-field" appearance="outline">
@@ -26,18 +27,26 @@
           Insira a sua senha
         </mat-error>
       </mat-form-field>
-      <mat-checkbox
-        formControlName="rememberMe"
-        class="form-check">Lembrar senha</mat-checkbox>
       <button
         mat-raised-button
         type="submit"
         class="button"
         color="primary"
-        [disabled]="formDir.invalid">Entrar</button>
-      <mat-error *ngIf="!!errorMsg && formDir.submitted" class="login-error-msg">
+        [disabled]="formDir.invalid || loading">
+        <span *ngIf="!loading; else spinner">Entrar</span>
+        <ng-template #spinner>
+          <div class="d-flex flex-row justify-content-center align-items-center">
+            <span>
+              Entrando
+            </span>
+            <mat-spinner class="ms-2" diameter="14"></mat-spinner>
+          </div>
+        </ng-template>
+      </button>
+
+      <div *ngIf="!!errorMsg && formDir.submitted" class="alert alert-danger text-center" role="alert">
         {{ errorMsg }}
-      </mat-error>
+      </div>
     </form>
   </mat-card>
 </div>

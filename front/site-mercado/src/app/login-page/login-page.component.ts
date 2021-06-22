@@ -2,7 +2,7 @@ import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { first, finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -13,13 +13,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
   hidePassword = true;
+  loading = false;
   errorMsg!: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private router: Router,
-    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -31,17 +31,25 @@ export class LoginPageComponent implements OnInit {
   }
 
   signIn() {
+    this.loading = true;
+    this.errorMsg = '';
+
     if (this.loginForm.valid) {
       const { userName, password } = this.loginForm.value;
       this.authService.signIn(userName, password)
-      .pipe(first())
+      .pipe(finalize(() => this.loading = false))
       .subscribe(
         success => {
-          if (success) {
-            this.router.navigateByUrl('app');
-          } else {
-            this.errorMsg = 'Usuário ou senha inválidos';
+          console.log(success);
+          this.router.navigateByUrl('app');
+        },
+        error => {
+          console.log(error);
+          if (error.status === 400) {
+            this.errorMsg = error.error.Auth;
+            return;
           }
+          this.errorMsg = 'Erro ao efetuar o login. Tente novamente mais tarde';
         }
       )
     }
