@@ -14,13 +14,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AlertComponentComponent } from './alert-component/alert-component.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidenavComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AlertComponentComponent
   ],
   imports: [
     CommonModule,
