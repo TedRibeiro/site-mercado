@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SiteMercado.Domain.Core.Repositories;
+using SiteMercado.Domain.Models;
+using SiteMercado.Shared.Helpers;
+using SiteMercado.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +46,11 @@ namespace SiteMercado.Data.Repositories
         {
             db.Entry(obj).State = EntityState.Modified;
             db.SaveChanges();
+        }
+
+        public PagedList<TEntity> GetPaged<TQueryParams>(TQueryParams param) where TQueryParams : BaseQueryParameters
+        {
+            return PagedList<TEntity>.ToPagedList(db.Set<TEntity>(), param.PageNumber, param.PageSize);
         }
     }
 }

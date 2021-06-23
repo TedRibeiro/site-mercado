@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SiteMercado.Domain\SiteMercado.Domain.csproj" />
+    <ProjectReference Include="..\SiteMercado.Shared\SiteMercado.Shared.csproj" />
   </ItemGroup>
 
 </Project>

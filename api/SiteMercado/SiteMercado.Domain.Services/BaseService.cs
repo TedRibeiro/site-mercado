@@ -1,5 +1,7 @@
 ﻿using SiteMercado.Domain.Core.Repositories;
 using SiteMercado.Domain.Core.Services;
+using SiteMercado.Shared.Helpers;
+using SiteMercado.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +42,11 @@ namespace SiteMercado.Domain.Services
         public void Update(TEntity obj)
         {
             repository.Update(obj);
+        }
+
+        public PagedList<TEntity> GetPaged<TQueryParams>(TQueryParams queryParams) where TQueryParams : BaseQueryParameters
+        {
+            return repository.GetPaged(queryParams);
         }
     }
 }

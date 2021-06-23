@@ -1,4 +1,6 @@
 ﻿using SiteMercado.Application.DTOs;
+using SiteMercado.Domain.Models;
+using SiteMercado.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +20,7 @@ namespace SiteMercado.Application.Interfaces
         IEnumerable<ProductDto> GetAll();
 
         ProductDto GetById(int id);
+
+        IEnumerable<ProductDto> GetPaged(ProductQueryParameters parameters);
     }
 }

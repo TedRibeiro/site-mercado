@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiteMercado.Application.DTOs;
 using SiteMercado.Application.Interfaces;
+using SiteMercado.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,6 +90,19 @@ namespace SiteMercado.Api.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
 
+        }
+
+        [HttpGet("paged")]
+        public IActionResult GetPaged([FromQuery] ProductQueryParameters queryParams)
+        {
+            try
+            {
+                return Ok(_applicationServiceProduct.GetPaged(queryParams));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
         [HttpPost("upload"), DisableRequestSizeLimit]

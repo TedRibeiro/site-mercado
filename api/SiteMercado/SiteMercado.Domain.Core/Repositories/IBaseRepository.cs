@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SiteMercado.Shared.Helpers;
+using SiteMercado.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +19,8 @@ namespace SiteMercado.Domain.Core.Repositories
         IEnumerable<TEntity> GetAll();
 
         TEntity GetById(int id);
+
+        PagedList<TEntity> GetPaged<TQueryParams>(TQueryParams filter) 
+            where TQueryParams : BaseQueryParameters;
     }
 }
