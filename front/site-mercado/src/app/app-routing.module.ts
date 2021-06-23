@@ -1,11 +1,14 @@
+import { LoginGuard } from './guards/login.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthenticationGuard } from './guards/authentication.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     loadChildren: () =>
       import('./login-page/login-page.module').then((m) => m.LoginPageModule),
+    canLoad: [LoginGuard],
   },
   {
     path: 'app',
@@ -13,10 +16,11 @@ const routes: Routes = [
       import('./authenticated-area/authenticated-area.module').then(
         (m) => m.AuthenticatedAreaModule
       ),
+    canLoad: [AuthenticationGuard]
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'login',
     pathMatch: 'full'
   }
 ];

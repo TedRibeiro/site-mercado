@@ -1,3 +1,4 @@
+import { AuthenticationService } from './authentication.service';
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = "SiteMercado:Token";
@@ -10,11 +11,11 @@ export class UserContextService {
   constructor() { }
 
   signIn(token: string) {
-    localStorage.setItem(TOKEN_KEY, token);
+    sessionStorage.setItem(TOKEN_KEY, token);
   }
 
   signOut() {
-    localStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(TOKEN_KEY);
   }
 
   get isLogged() {
@@ -22,6 +23,6 @@ export class UserContextService {
   }
 
   get token() {
-    return localStorage.getItem(TOKEN_KEY);
+    return sessionStorage.getItem(TOKEN_KEY);
   }
 }
