@@ -7,6 +7,10 @@
   <img appResolveImage [src]="product.photoUrl" [alt]="'Foto do produto ' + product.name" class="product-image">
   <h3><strong>Preço: {{ product.price | currency }}</strong></h3>
   <p><strong>Descrição</strong>: {{ product.description }}</p>
+  <div class="d-flex flex-row">
+    <button type="button" mat-raised-button (click)="edit()">Editar</button>
+    <button type="button" mat-raised-button (click)="delete()" class="ms-2">Deletar</button>
+  </div>
 </div>
 
 <ng-template #loading>

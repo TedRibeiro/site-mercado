@@ -1,9 +1,12 @@
-import { finalize } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { finalize, switchMap } from 'rxjs/operators';
 import { ProductService } from './../../../services/product.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/authenticated-area/interfaces/product';
-import { ActivatedRoute } from '@angular/router';
-import { pipe } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of, pipe } from 'rxjs';
+import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-product-details',
@@ -19,7 +22,10 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this._productId = this.activatedRoute.snapshot.params.productId;
   }
@@ -36,5 +42,46 @@ export class ProductDetailsComponent implements OnInit {
 
   goBack() {
     history.back();
+  }
+
+  edit() {
+    this.router.navigateByUrl(`app/edit/${this._productId}`);
+  }
+
+  delete() {
+    const dialog = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Deletar Produto',
+        content: `Tem certeza de que deseja deletar '${this.product.name}'?`,
+      },
+    });
+
+    dialog.afterClosed()
+    .pipe(switchMap((success) => {
+      if (success) {
+        return this.productService.delete(this._productId);
+      }
+
+      return of(false);
+    }))
+    .subscribe(
+    (res) => {
+      if (res !== false) {
+        this.router.navigateByUrl(`app/product-list`);
+
+        this.snackBar.open('Produto removido com sucesso!', 'Ok', {
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          duration: 3000,
+        });
+      }
+    },
+    error => {
+      this.snackBar.open('Erro na remoção do produto', 'Ok', {
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        duration: 3000,
+      });
+    });
   }
 }
