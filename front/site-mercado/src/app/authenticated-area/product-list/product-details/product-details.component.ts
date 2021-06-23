@@ -2,10 +2,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize, switchMap } from 'rxjs/operators';
 import { ProductService } from './../../../services/product.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/authenticated-area/interfaces/product';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, pipe } from 'rxjs';
+import { of } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({

@@ -31,15 +31,10 @@ export class AuthenticatedAreaComponent implements OnInit {
       }
     );
 
-    // TODO: Alterar para switchMap
     dialog.afterClosed().subscribe((confirmed) => {
       if (confirmed) {
-        this.authService.signOut()
-        .subscribe((success) => {
-          if (success) {
-            this.router.navigateByUrl('');
-          }
-        })
+        this.authService.signOut();
+        this.router.navigateByUrl('/login');
       }
     })
   }

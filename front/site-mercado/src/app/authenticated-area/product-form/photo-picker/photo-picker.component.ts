@@ -1,7 +1,5 @@
-import { environment } from './../../../../environments/environment';
 import { ProductService } from './../../../services/product.service';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 
@@ -10,7 +8,7 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './photo-picker.component.html',
   styleUrls: ['./photo-picker.component.scss']
 })
-export class PhotoPickerComponent implements OnInit {
+export class PhotoPickerComponent {
 
   @Output() uploadedPhoto = new EventEmitter();
   @Input() imagePreviewUrl!: string;
@@ -26,9 +24,6 @@ export class PhotoPickerComponent implements OnInit {
   constructor(
     private productService: ProductService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   onSelectFile(photo: any) {
     if (photo.files.length > 0) {
@@ -63,9 +58,6 @@ export class PhotoPickerComponent implements OnInit {
           const total = event.total ?? 1;
           this.uploadProgress = Math.round(100 * (event.loaded / total));
         } else if (event.type === HttpEventType.Response) {
-          console.log(event);
-          console.log(event.body);
-          console.log(event.body.relativePath);
           this.uploadedPhoto.emit(event.body.relativePath);
         }
       },

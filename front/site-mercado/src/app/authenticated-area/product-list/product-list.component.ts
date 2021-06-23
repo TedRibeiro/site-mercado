@@ -77,7 +77,7 @@ export class ProductListComponent implements OnInit {
     .subscribe(
     (res) => {
       if (res !== false) {
-        this.dataSource.data = this.dataSource.data.filter(d => d.id !== id);
+        this.getProducts();
 
         this.snackBar.open('Produto removido com sucesso!', 'Ok', {
           horizontalPosition: 'right',
@@ -107,7 +107,6 @@ export class ProductListComponent implements OnInit {
     .pipe(finalize(() => { this.loading = false; }))
     .subscribe(
       res => {
-        console.log(res.data);
         this.dataSource = new MatTableDataSource<any>(res.data);
         const [{ pageIndex, pageSize, length }] = [ res.pagingData ];
         this.length = length;

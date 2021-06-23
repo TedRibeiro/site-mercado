@@ -1,32 +1,17 @@
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProductListModule } from './product-list/product-list.module';
+import { ProductFormModule } from './product-form/product-form.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { SharedModule } from './../shared/shared.module';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticatedAreaComponent } from './authenticated-area.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { PhotoPickerComponent } from './product-form/photo-picker/photo-picker.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
-import { MatTableModule } from '@angular/material/table';
 import { ProductDetailsComponent } from './product-list/product-details/product-details.component';
-import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
-import { ResolveImageDirective } from './directives/resolve-image.directive';
 import { ComponentsModule } from './components/components.module';
-import { MatSortModule } from '@angular/material/sort';
-
 const routes: Routes = [
   {
     path: '',
@@ -42,26 +27,9 @@ const routes: Routes = [
   },
 ];
 
-export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-  align: "right",
-  allowNegative: false,
-  decimal: ",",
-  precision: 2,
-  prefix: "R$ ",
-  suffix: "",
-  thousands: "."
-};
-
-
 @NgModule({
   declarations: [
-    AuthenticatedAreaComponent,
-    ProductFormComponent,
-    ProductListComponent,
-    DashboardComponent,
-    ProductDetailsComponent,
-    PhotoPickerComponent,
-    ResolveImageDirective
+    AuthenticatedAreaComponent
   ],
   imports: [
     CommonModule,
@@ -69,24 +37,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ComponentsModule,
     SharedModule,
     MatSidenavModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatProgressBarModule,
-    MatPaginatorModule,
-    MatTooltipModule,
-    ReactiveFormsModule,
-    CurrencyMaskModule,
-    MatProgressSpinnerModule
-  ],
-  providers: [
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
-    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() }
+    DashboardModule,
+    ProductFormModule,
+    ProductListModule
   ],
 })
 export class AuthenticatedAreaModule {}

@@ -106,6 +106,6 @@ export class ProductFormComponent implements OnInit {
     if (!!relativePath) {
       return `${environment.baseUrl}/${relativePath.replace(/\\/g, '/')}`;
     }
-    return '';
+    return `${environment.baseUrl}/Uploads/Images/product.png`;
   }
 }

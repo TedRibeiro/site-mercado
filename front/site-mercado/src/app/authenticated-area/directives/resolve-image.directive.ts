@@ -16,6 +16,10 @@ export class ResolveImageDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const relativePath = this.element.src.replace(location.origin, '');
-    this.element.src = `${BASE_URL}${relativePath}`;
+    if (!!relativePath) {
+      this.element.src = `${BASE_URL}${relativePath}`;
+    } else {
+      this.element.src = `${BASE_URL}/Uploads/Images/product.png`;
+    }
   }
 }
