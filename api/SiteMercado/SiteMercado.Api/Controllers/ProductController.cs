@@ -98,21 +98,16 @@ namespace SiteMercado.Api.Controllers
         {
             try
             {
-                var products = _applicationServiceProduct.GetPaged(queryParams);
+                var data = _applicationServiceProduct.GetPaged(queryParams);
 
-                var metadata = new
+                var pagingData = new
                 {
-                    products.TotalCount,
-                    products.TotalPages,
-                    products.HasNext,
-                    products.HasPrevious,
-                    products.CurrentPage
-
+                    data.Length,
+                    data.PageIndex,
+                    data.PageSize
                 };
 
-                Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
-
-                return Ok(products);
+                return Ok(new { data, pagingData });
             }
             catch (Exception ex)
             {
