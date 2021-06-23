@@ -116,15 +116,6 @@ namespace SiteMercado.Api
             });
         }
 
-        private void UseCors(IApplicationBuilder app)
-        {
-            app.UseCors(
-                options => options.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-            );
-        }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -163,7 +154,7 @@ namespace SiteMercado.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SiteMercado.Api v1"));
             }
 
-            UseCors(app);
+            app.UseCors("AllowAnyOrigin");
             UseStaticFiles(app);
 
             app.UseHttpsRedirection();
