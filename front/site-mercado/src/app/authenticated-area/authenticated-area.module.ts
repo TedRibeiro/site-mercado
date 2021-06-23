@@ -25,6 +25,7 @@ import { ProductDetailsComponent } from './product-list/product-details/product-
 import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 import { ResolveImageDirective } from './directives/resolve-image.directive';
 import { ComponentsModule } from './components/components.module';
+import { MatSortModule } from '@angular/material/sort';
 
 const routes: Routes = [
   {
@@ -75,6 +76,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatIconModule,
     MatDialogModule,
     MatTableModule,
+    MatSortModule,
     MatProgressBarModule,
     MatPaginatorModule,
     MatTooltipModule,

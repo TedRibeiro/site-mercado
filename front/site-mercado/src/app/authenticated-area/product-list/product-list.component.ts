@@ -1,29 +1,40 @@
+import { ProductQueryParameters } from './../interfaces/product-query';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductList } from '../interfaces/product';
 import { ProductService } from './../../services/product.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from './../components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/authenticated-area/interfaces/product';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, finalize, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit, AfterViewInit {
+export class ProductListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'price', 'action'];
   dataSource!: MatTableDataSource<Product>;
   products!: ProductList;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  loading = false;
+  hasError = false;
+
+  pageIndex: number = 0;
+  pageSize: number = 10;
+  length!: number;
+
+  searchControl = new FormControl();
 
   constructor(
     private dialog: MatDialog,
@@ -34,24 +45,17 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.productService.list().subscribe((p) => {
-      this.products = p;
-      this.dataSource = new MatTableDataSource(this.products);
-    })
+    this.configureSearchField();
+    setTimeout(() => this.getProducts());
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  configureSearchField() {
+    this.searchControl
+      .valueChanges
+      .pipe(
+        debounceTime(400),
+        distinctUntilChanged())
+        .subscribe(() => this.getProducts());
   }
 
   delete(id: string, productName: string) {
@@ -95,5 +99,35 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl(`app/edit/${id}`);
   }
 
-  showDetails(id: number) {}
+  getProducts() {
+    this.loading = true;
+    this.hasError = false;
+
+    this.productService.getPaged(this.queryParams)
+    .pipe(finalize(() => { this.loading = false; }))
+    .subscribe(
+      res => {
+        console.log(res.data);
+        this.dataSource = new MatTableDataSource<any>(res.data);
+        const [{ pageIndex, pageSize, length }] = [ res.pagingData ];
+        this.length = length;
+        this.pageIndex = pageIndex;
+        this.pageSize = pageSize
+      },
+      error => {
+        this.dataSource = new MatTableDataSource<any>();
+        this.hasError = true;
+      }
+    );
+  }
+
+  get queryParams(): ProductQueryParameters {
+    return {
+      pageNumber: this.paginator.pageIndex,
+      pageSize: this.paginator.pageSize,
+      searchTerm: this.searchControl.value?.trim(),
+      sortActive: this.sort.active,
+      sortDirection: this.sort.direction
+    };
+  }
 }

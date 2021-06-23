@@ -1,8 +1,11 @@
 import { Product, ProductList } from '../authenticated-area/interfaces/product';
 import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { ProductQueryParameters } from '../authenticated-area/interfaces/product-query';
+import { ProductPagingResponseData } from '../authenticated-area/interfaces/product-response';
+
 
 const API = `${environment.baseUrl}/api/product`;
 
@@ -44,5 +47,14 @@ export class ProductService {
       observe: 'events',
       reportProgress: true
     });
+  }
+
+  getPaged(queryParams: ProductQueryParameters): Observable<ProductPagingResponseData> {
+    let params = new HttpParams();
+    Object.keys(queryParams).forEach((key) => {
+        params = params.append(key, queryParams[key]);
+    });
+
+    return this.http.get<ProductPagingResponseData>(`${API}/paged`,{ params });
   }
 }
