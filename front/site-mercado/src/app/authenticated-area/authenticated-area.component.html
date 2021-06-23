@@ -5,8 +5,10 @@
       <mat-sidenav #sidenav role="navigation">
           <app-sidenav (sidenavClose)="sidenav.close()"></app-sidenav>
       </mat-sidenav>
-      <mat-sidenav-content class="content">
+      <mat-sidenav-content>
+        <div class="content">
           <router-outlet></router-outlet>
+        </div>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
