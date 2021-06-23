@@ -14,7 +14,7 @@ export class UserContextService {
     sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  signOut() {
+  signOut(): void {
     sessionStorage.removeItem(TOKEN_KEY);
   }
 
@@ -23,6 +23,7 @@ export class UserContextService {
   }
 
   get token() {
-    return sessionStorage.getItem(TOKEN_KEY);
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    return token;
   }
 }

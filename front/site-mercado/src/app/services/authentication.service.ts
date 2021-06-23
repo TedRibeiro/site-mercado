@@ -27,8 +27,8 @@ export class AuthenticationService {
     );
   }
 
-  signOut(): Observable<boolean> {
-    return of(true);
+  signOut(): void {
+    this.userContext.signOut();
   }
 }
 

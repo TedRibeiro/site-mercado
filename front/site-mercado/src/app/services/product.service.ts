@@ -52,7 +52,7 @@ export class ProductService {
   getPaged(queryParams: ProductQueryParameters): Observable<ProductPagingResponseData> {
     let params = new HttpParams();
     Object.keys(queryParams).forEach((key) => {
-        params = params.append(key, queryParams[key]);
+        params = params.append(key, queryParams[key] ?? '');
     });
 
     return this.http.get<ProductPagingResponseData>(`${API}/paged`,{ params });
