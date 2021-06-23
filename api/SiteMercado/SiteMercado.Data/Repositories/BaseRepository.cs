@@ -50,8 +50,8 @@ namespace SiteMercado.Data.Repositories
 
         public PagedList<TEntity> GetPaged<TQueryParams>(TQueryParams queryParams) where TQueryParams : BaseQueryParameters
         {
-            _ = ApplyFilter(queryParams, db.Set<TEntity>());
-            var collection = ApplySort(queryParams, db.Set<TEntity>());
+            var collection = ApplyFilter(queryParams, db.Set<TEntity>());
+            collection = ApplySort(queryParams, collection);
             return PagedList<TEntity>.ToPagedList(collection, queryParams.PageNumber, queryParams.PageSize);
         }
 
