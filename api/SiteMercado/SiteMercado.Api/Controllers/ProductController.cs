@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SiteMercado.Api.Controllers
@@ -97,7 +98,21 @@ namespace SiteMercado.Api.Controllers
         {
             try
             {
-                return Ok(_applicationServiceProduct.GetPaged(queryParams));
+                var products = _applicationServiceProduct.GetPaged(queryParams);
+
+                var metadata = new
+                {
+                    products.TotalCount,
+                    products.TotalPages,
+                    products.HasNext,
+                    products.HasPrevious,
+                    products.CurrentPage
+
+                };
+
+                Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
+
+                return Ok(products);
             }
             catch (Exception ex)
             {

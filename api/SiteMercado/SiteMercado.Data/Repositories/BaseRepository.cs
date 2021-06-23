@@ -48,9 +48,16 @@ namespace SiteMercado.Data.Repositories
             db.SaveChanges();
         }
 
-        public PagedList<TEntity> GetPaged<TQueryParams>(TQueryParams param) where TQueryParams : BaseQueryParameters
+        public PagedList<TEntity> GetPaged<TQueryParams>(TQueryParams queryParams) where TQueryParams : BaseQueryParameters
         {
-            return PagedList<TEntity>.ToPagedList(db.Set<TEntity>(), param.PageNumber, param.PageSize);
+            var collection = ApplyFilter(queryParams, db.Set<TEntity>());
+            return PagedList<TEntity>.ToPagedList(collection, queryParams.PageNumber, queryParams.PageSize);
+        }
+
+        public virtual IQueryable<TEntity> ApplyFilter<TQueryParams>(TQueryParams queryParams, IQueryable<TEntity> query)
+            where TQueryParams : BaseQueryParameters
+        {
+            return query;
         }
     }
 }

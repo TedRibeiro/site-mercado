@@ -4,6 +4,7 @@ using SiteMercado.Application.Interfaces;
 using SiteMercado.Domain.Core.Services;
 using SiteMercado.Domain.Entities;
 using SiteMercado.Domain.Models;
+using SiteMercado.Shared.Helpers;
 using SiteMercado.Shared.Models;
 using System.Collections.Generic;
 
@@ -54,11 +55,12 @@ namespace SiteMercado.Application
             return mapper.Map<ProductDto>(product);
         }
 
-        public IEnumerable<ProductDto> GetPaged(ProductQueryParameters parameters)
+        public PagedList<ProductDto> GetPaged(ProductQueryParameters parameters)
         {
             var products = productService.GetPaged(parameters);
             var productsDto = mapper.Map<IEnumerable<ProductDto>>(products);
-            return productsDto;
+
+            return new PagedList<ProductDto>(productsDto as List<ProductDto>, products.TotalCount, products.CurrentPage, products.PageSize);
         }
     }
 }
