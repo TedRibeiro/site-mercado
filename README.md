@@ -6,5 +6,9 @@ Tecnologias utilizadas:
 - **Front**: Angular 12
 
 ## Executando o projeto
-- **Back**: Servir a API definida pelo projeto `SiteMercado.API` pelo IIS Express
-- **Front**: Executar comando `ng serve` na pasta `front/site-mercado`
+- **Back**: 
+  - Restaurar pacotes NuGet para solução
+  - Servir a API definida pelo projeto `SiteMercado.API` pelo IIS Express
+- **Front**: 
+  - Na pasta `front/site-mercado` rodar o comando `npm install`
+  - Executar comando `ng serve` 
