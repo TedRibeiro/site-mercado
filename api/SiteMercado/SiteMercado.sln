@@ -15,19 +15,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1-Data", "4.1-Data", "{EC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2-CrossCutting", "4.2-CrossCutting", "{BD55F7A2-C1CD-46BB-A056-F1E1575A988C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Api", "SiteMercado.Api\SiteMercado.Api.csproj", "{6F8D2600-3506-4B35-947A-68085E19053C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteMercado.Api", "SiteMercado.Api\SiteMercado.Api.csproj", "{6F8D2600-3506-4B35-947A-68085E19053C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Application", "SiteMercado.Application\SiteMercado.Application.csproj", "{E7B0EB46-6123-4354-A6CC-8CB445A8E6B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteMercado.Application", "SiteMercado.Application\SiteMercado.Application.csproj", "{E7B0EB46-6123-4354-A6CC-8CB445A8E6B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Domain", "SiteMercado.Domain\SiteMercado.Domain.csproj", "{ED34C49A-B349-42F6-9EDE-C12743AF799F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteMercado.Domain", "SiteMercado.Domain\SiteMercado.Domain.csproj", "{ED34C49A-B349-42F6-9EDE-C12743AF799F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Domain.Core", "SiteMercado.Domain.Core\SiteMercado.Domain.Core.csproj", "{2C18FA0C-62AC-48B1-AE40-2A667DDBDD77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteMercado.Domain.Core", "SiteMercado.Domain.Core\SiteMercado.Domain.Core.csproj", "{2C18FA0C-62AC-48B1-AE40-2A667DDBDD77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Domain.Services", "SiteMercado.Domain.Services\SiteMercado.Domain.Services.csproj", "{89FFC39F-A7B8-4E2D-AEBC-AC69A914CF0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteMercado.Domain.Services", "SiteMercado.Domain.Services\SiteMercado.Domain.Services.csproj", "{89FFC39F-A7B8-4E2D-AEBC-AC69A914CF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Data", "SiteMercado.Data\SiteMercado.Data.csproj", "{CEE65E1A-3CFA-480E-BCE2-3071A8B27F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteMercado.Data", "SiteMercado.Data\SiteMercado.Data.csproj", "{CEE65E1A-3CFA-480E-BCE2-3071A8B27F16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.CrossCutting", "SiteMercado.CrossCutting\SiteMercado.CrossCutting.csproj", "{EE0C6648-7A36-4C74-AE4B-8E4F5B9508E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteMercado.CrossCutting", "SiteMercado.CrossCutting\SiteMercado.CrossCutting.csproj", "{EE0C6648-7A36-4C74-AE4B-8E4F5B9508E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.3-Shared", "4.3-Shared", "{8F8F9ABB-3070-417A-9EC3-D60C53C61DF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMercado.Shared", "SiteMercado.Shared\SiteMercado.Shared.csproj", "{A3B1F623-45CC-4230-8B78-EDB734930050}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,10 @@ Global
 		{EE0C6648-7A36-4C74-AE4B-8E4F5B9508E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE0C6648-7A36-4C74-AE4B-8E4F5B9508E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE0C6648-7A36-4C74-AE4B-8E4F5B9508E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B1F623-45CC-4230-8B78-EDB734930050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B1F623-45CC-4230-8B78-EDB734930050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B1F623-45CC-4230-8B78-EDB734930050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B1F623-45CC-4230-8B78-EDB734930050}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +85,8 @@ Global
 		{89FFC39F-A7B8-4E2D-AEBC-AC69A914CF0B} = {A100FB1F-303F-4B9C-A170-B487F35A0C8B}
 		{CEE65E1A-3CFA-480E-BCE2-3071A8B27F16} = {EC3A7DCC-BB1A-4214-9F10-E1F478DCFD07}
 		{EE0C6648-7A36-4C74-AE4B-8E4F5B9508E9} = {BD55F7A2-C1CD-46BB-A056-F1E1575A988C}
+		{8F8F9ABB-3070-417A-9EC3-D60C53C61DF3} = {4011F749-AFB5-40B3-A070-A3C57EBBAD99}
+		{A3B1F623-45CC-4230-8B78-EDB734930050} = {8F8F9ABB-3070-417A-9EC3-D60C53C61DF3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6741A18-FAE0-46C4-AE04-DC149604E77D}
