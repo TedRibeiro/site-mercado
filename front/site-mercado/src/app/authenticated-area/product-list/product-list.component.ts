@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductList } from '../interfaces/product';
 import { ProductService } from './../../services/product.service';
 import { Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private router: Router,
     private productService: ProductService,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -66,9 +68,26 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         return this.productService.delete(id);
       }
 
-      return of(null);
-    })).subscribe((success) => {
-      console.log(success);
+      return of(false);
+    }))
+    .subscribe(
+    (res) => {
+      if (res !== false) {
+        this.dataSource.data = this.dataSource.data.filter(d => d.id !== id);
+
+        this.snackBar.open('Produto removido com sucesso!', 'Ok', {
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          duration: 3000,
+        });
+      }
+    },
+    error => {
+      this.snackBar.open('Erro na remoção do produto', 'Ok', {
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        duration: 3000,
+      });
     });
   }
 
