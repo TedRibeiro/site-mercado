@@ -27,5 +27,28 @@ namespace SiteMercado.Data.Repositories
 
             return query;
         }
+        
+        public override IQueryable<Product> ApplySort<TQueryParams>(TQueryParams queryParams, IQueryable<Product> query)
+        {
+            var filter = queryParams as ProductQueryParameters;
+            var sortActive = filter.SortActive;
+
+            if (!string.IsNullOrWhiteSpace(sortActive))
+            {
+                var isAsc = filter.SortDirection == "asc";
+
+                if (sortActive == "name")
+                {
+                    query = isAsc ? query.OrderBy(q => q.Name) : query.OrderByDescending(q => q.Name);
+                }
+                else if (sortActive == "price")
+                {
+                    query = isAsc ? query.OrderBy(q => q.Price) : query.OrderByDescending(q => q.Price);
+                }
+
+            }
+
+            return query;
+        }
     }
 }

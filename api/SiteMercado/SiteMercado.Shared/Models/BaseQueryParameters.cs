@@ -17,5 +17,9 @@ namespace SiteMercado.Shared.Models
             set { _pageSize = (value > maxPageSize) ? maxPageSize : value; }
         }
         public string SearchTerm { get; set; }
+
+        public string SortActive { get; set; }
+
+        public string SortDirection { get; set; }
     }
 }

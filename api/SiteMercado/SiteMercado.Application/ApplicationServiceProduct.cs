@@ -60,7 +60,7 @@ namespace SiteMercado.Application
             var products = productService.GetPaged(parameters);
             var productsDto = mapper.Map<IEnumerable<ProductDto>>(products);
 
-            return new PagedList<ProductDto>(productsDto as List<ProductDto>, products.TotalCount, products.CurrentPage, products.PageSize);
+            return new PagedList<ProductDto>(productsDto as List<ProductDto>, products.Length, products.PageIndex, products.PageSize);
         }
     }
 }
