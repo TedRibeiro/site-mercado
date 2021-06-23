@@ -61,12 +61,7 @@ export class ProductFormComponent implements OnInit {
   private _insertProduct(product: Product) {
     this.productService.save(product).subscribe(
       (success) => {
-        this.snackBar.open('Produto adicionado com sucesso!', 'Ok', {
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          duration: 3000,
-        });
-
+        this.openModal('Produto adicionado com sucesso!');
         this.router.navigateByUrl('app/product-list');
       },
       (error) => {
@@ -80,18 +75,21 @@ export class ProductFormComponent implements OnInit {
 
     this.productService.update(product).subscribe(
       (success) => {
-        this.snackBar.open('Produto adicionado com sucesso!', 'Ok', {
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          duration: 3000,
-        });
-
+        this.openModal('Produto editado com sucesso!');
         this.router.navigateByUrl('app/product-list');
       },
       (error) => {
         this.errorMsg = `Erro ao atualizar o produto`;
       }
     );
+  }
+
+  private openModal(message: string){
+    this.snackBar.open(message, 'Ok', {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 3000,
+    });
   }
 
   goBack() {
@@ -106,6 +104,6 @@ export class ProductFormComponent implements OnInit {
     if (!!relativePath) {
       return `${environment.baseUrl}/${relativePath.replace(/\\/g, '/')}`;
     }
-    return `${environment.baseUrl}/Uploads/Images/product.png`;
+    return '';
   }
 }
